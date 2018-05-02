@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue2.0</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    
+    <h1>v-text & v-html</h1>
+    <hr>
+    <p>
+            我们已经会在html中输出data中的值了，我们已经用的是{{xxx}},这种情况是有弊端的，就是当我们网速很慢或者javascript出错时，会暴露我们的{{xxx}}。Vue给我们提供的v-text,就是解决这个问题的。我们来看代码：
+    </p>
+    <div id="app">
+        <span>{{message}}</span>=<span v-text="message"></span>
+        <br>
+            <p>
+                    如果在javascript中写有html标签，用v-text是输出不出来的，这时候我们就需要用v-html标签了。
+                    双大括号会将数据解释为纯文本，而非HTML。为了输出真正的HTML，你就需要使用v-html 指令。
+            </p>
+        <span v-html="msHtml"></span>
+
+        <p>
+                需要注意的是：在生产环境中动态渲染HTML是非常危险的，因为容易导致XSS攻击。所以只能在可信的内容上使用v-html，永远不要在用户提交和可操作的网页上使用。
+        </p>
+    </div>
+
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+                message:"hello Vue！",
+                msHtml:"<h2>hello Vue!</h2>"
+            }
+        })
+        
+    </script>
+</body>
+</html>

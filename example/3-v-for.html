@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for指令 ：解决模板循环问题</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>v-for指令 ：解决模板循环问题</h1>
+    <hr>
+    <p>
+        v-for指令是循环渲染一组data中的数组，v-for 指令需要以 item in items 形式的特殊语法，items 是源数据数组并且item是数组元素迭代的别名。
+    </p>
+    <div id="app">
+        <h2>v-for 循环</h2>
+        <p>v-for指令是循环渲染一组data中的数组，v-for 指令需要以 item in items 形式的特殊语法，items 是源数据数组并且item是数组元素迭代的别名。</p>
+        <p>这是一个最基础的循环，先在js里定义了items数组，然后在模板中用v-for循环出来，需要注意的是，你需要那个html标签循环，v-for就写在那个上边。</p>
+        <ul>
+            <li v-for="item in items">
+                {{item}}
+            </li>
+        </ul>
+        <h2>v-for 排序</h2>
+        <p>我们已经顺利的输出了我们定义的数组，但是我需要在输出之前给数组排个序，那我们就用到了Vue的computed:属性。</p>
+        <p>我们在computed里新声明了一个对象sortItems，如果不重新声明会污染原来的数据源，这是Vue不允许的，所以你要重新声明一个对象</p>
+        <strong>
+            备注：computed 属性会复制一个数组
+        </strong>
+        <ul>
+            <li v-for="num in sortItems">
+                {{num}}
+            </li>
+        </ul>
+        <h3>点击排序</h3>
+        <ul>
+            <button  @click="sort">排序</button>
+            <li v-for="num1 in nums1">
+                {{num1}}
+            </li>
+        </ul>
+        <h2>对象循环输出</h2>
+        <p>vue低版本中 data里面的items和computed里面可以一样，但是高版本，是不允许相同名称。有很多小伙伴踩到了这个坑，这里提醒学习的小伙伴，根据自己版本的不同，请修改代码。（感谢网友：tannnb的指正）。</p>
+        <ul>
+            <li v-for="(student,index) in students">
+                {{index+1}} 我叫{{student.name}}，我今年{{student.age}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                items: ["vue1", "vue2", "vue3", "vue4"],
+                nums: [12, 23, 45, 56, 69, 87, 99, 78, 5, 64, 13, 43, 413, 13, 13, 43],
+                nums1:[87,654,13,6,46,434,64,6,4,65,465,4,132,13,435,46,51,321,5,465,456,1],
+                students: [
+                    { name: 'Anson', age: 19 },
+                    { name: 'Panda', age: 30 },
+                    { name: 'PanPaN', age: 21 },
+                    { name: 'King', age: 45 }
+                ]
+            },
+            computed: {
+                sortItems: function () {
+                    return this.nums.sort(sortNumber);
+                }
+            },
+            methods: {
+                sort:function(){
+                    this.nums1.sort(sortNumber)
+                }
+            }
+        })
+        function sortNumber(a, b) {
+            return a - b
+        }
+    </script>
+</body>
+
+</html>
