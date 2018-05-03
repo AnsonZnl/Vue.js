@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-bind 指令</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>v-bind 指令</h1>
+    <hr>
+    <p>v-bind是处理HTML中的标签属性的，例如
+        <div></div>就是一个标签，
+        <img>也是一个标签，我们绑定
+        <img>上的src进行动态赋值。</p>
+    <div id="app">
+        <img v-bind:src="imgSrc" alt="这是一张照片">
+        <p>我们在data对象在中增加了imgSrc属性来供html调用。</p>
+        <h3>v-bind 缩写</h3>
+        <textarea name="" id="" cols="30" rows="5" style="resize:none" readonly="readonly">
+<!-- 完整语法 -->
+<a v-bind:href="url"></a>
+<!-- 缩写 -->
+<a :href="url"></a>
+        </textarea>
+        <h3>绑定CSS样式</h3>
+        
+
+
+
+    </div>
+
+    <script>    
+        var app = new Vue({
+            el: "#app",
+            data: {
+                imgSrc: 'http://api.meisupic.com/getImg.php?imgurl=https%3A%2F%2Fst.depositphotos.com%2Fthumbs%2F1325441%2Fimage%2F1828%2F18281339%2Fapi_thumb_450.jpg&id=18281339&userid=1325441&imgfile=thumbs'
+            }
+        })
+    </script>
+</body>
+
+</html>

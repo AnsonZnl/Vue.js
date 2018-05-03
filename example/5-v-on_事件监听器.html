@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-on 事件监听器</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>v-on 事件监听器</h1>
+    <hr>
+    <div id="app">
+        本场得分：{{count}}
+        <br>
+        <button @click="jiafen">+</button>
+        <br>
+        <button @click="jianfen">-</button>
+        <br>
+        <span>输入分数后按enter，改变得分</span>
+        <br>
+         输入您要修改的分数：
+         <input type="text" v-on:keyup.enter="onEnter" v-model="secondCount">
+         <button v-on:click="onEnter">输入完毕</button>
+
+
+         
+        <p>
+            注：   我们的v-on 还有一种简单的写法，就是用@代替。
+        </p>
+    </div>
+    <script>
+        var app=new Vue({
+             el:"#app",
+             data:{
+                 count:1,
+                 secondCount:50
+             },
+             methods:{
+                 jiafen:function (){
+                     this.count++;
+                 },
+                 jianfen:function(){
+                     this.count--;
+                 },
+                 onEnter:function(){
+                     this.count=this.count+parseInt(this.secondCount)
+                 }
+             }
+        })
+    </script>
+</body>
+</html>
