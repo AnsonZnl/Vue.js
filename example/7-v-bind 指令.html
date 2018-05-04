@@ -7,6 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>v-bind 指令</title>
     <script src="../assets/js/vue.js"></script>
+    <style> 
+        .fontSize{
+            font-size: 24px;
+        }
+        .color{
+            color: red;
+        }
+        .active{
+            background-color: rgb(18, 9, 145);
+            color: azure;
+        }
+    </style>
 </head>
 
 <body>
@@ -27,20 +39,42 @@
 <a :href="url"></a>
         </textarea>
         <h3>绑定CSS样式</h3>
+        <h4>一.直接绑定class样式</h4>
+        <div :class="{active:isActive}">   
+            1、绑定classA
+        </div>
+        <div class="istrue" v-bind:class="{active:isActive,'text-dang':hasError}">
+            2、判断class 显示与否
+        </div>  
+        <div :style="objstyle">
+            3、绑定style
+        </div>
+<p>
+    v-bind:style 的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS 属性名可以用驼峰式 (camelCase) 或短横线分隔 (kebab-case，记得用单引号括起来) 来命名：
+    直接绑定一个样式对象
+</p>
+
         
-
-
-
     </div>
-
     <script>    
         var app = new Vue({
             el: "#app",
             data: {
-                imgSrc: 'http://api.meisupic.com/getImg.php?imgurl=https%3A%2F%2Fst.depositphotos.com%2Fthumbs%2F1325441%2Fimage%2F1828%2F18281339%2Fapi_thumb_450.jpg&id=18281339&userid=1325441&imgfile=thumbs'
+                imgSrc: 'http://p0bnwspy9.bkt.clouddn.com/%7DK3U_6LDR5QMILUN%5BGIW9NJ.png'
+                ,className:{
+                    fontSize:false,
+                    color:true
+                },
+                isActive:true,
+                hasError: false,
+                objstyle:{
+                    fontSize:'24px',
+                    color:'red'
+                }
             }
         })
     </script>
+
 </body>
 
 </html>
