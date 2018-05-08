@@ -12,7 +12,10 @@
     <h1>v-text & v-html</h1>
     <hr>
     <p>
-            我们已经会在html中输出data中的值了，我们已经用的是{{xxx}},这种情况是有弊端的，就是当我们网速很慢或者javascript出错时，会暴露我们的{{xxx}}。Vue给我们提供的v-text,就是解决这个问题的。我们来看代码：
+            我们已经会在html中输出data中的值了，我们已经用的是{{xxx}},这种情况是有弊端的，
+            就是当我们网速很慢或者javascript出错时，会暴露我们的{{xxx}}。Vue给我们提供的v-text,
+            网速慢或者加载不出来的时候就不会显示 提高用户体验
+            就是解决这个问题的。我们来看代码：
     </p>
     <div id="app">
         <span>{{message}}</span>=<span v-text="message"></span>
@@ -20,6 +23,7 @@
             <p>
                     如果在javascript中写有html标签，用v-text是输出不出来的，这时候我们就需要用v-html标签了。
                     双大括号会将数据解释为纯文本，而非HTML。为了输出真正的HTML，你就需要使用v-html 指令。
+                    v-html 可以解析HTML标签
             </p>
         <span v-html="msHtml"></span>
 

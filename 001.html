@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>vue--001</title>
+</head>
+<body>
+	 <!-- 案例:使用原生js和vue操作元素的一个区别 -->
+	      <!-- 1.原生js -->
+		      <h1 id='h1'></h1> 
+		     <script>
+		     	// document.querySelector('#h1').innerHTML='你好世界';
+		     </script>
+          <script src="js/vue.js"></script>
+          <!-- 2.vue -->
+
+            <div id='itany'>{{message}}</div> 
+            <script>
+            	 new Vue({
+                      el:'#itany',
+                       data:{
+                      	message:'你好世界'
+                       }
+           		 })
+            </script>
+
+            <!-- 
+               注：使用{{}}就相当于解析变量
+             -->
+
+</body>
+</html>

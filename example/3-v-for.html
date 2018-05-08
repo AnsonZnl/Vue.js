@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +37,7 @@
         </ul>
         <h3>点击排序</h3>
         <ul>
-            <button  @click="sort">排序</button>
+            <button @click="sort">排序</button>
             <li v-for="num1 in nums1">
                 {{num1}}
             </li>
@@ -44,8 +45,8 @@
         <h2>对象循环输出</h2>
         <p>vue低版本中 data里面的items和computed里面可以一样，但是高版本，是不允许相同名称。有很多小伙伴踩到了这个坑，这里提醒学习的小伙伴，根据自己版本的不同，请修改代码。（感谢网友：tannnb的指正）。</p>
         <ul>
-            <li v-for="(student,index) in students">
-                {{index+1}} 我叫{{student.name}}，我今年{{student.age}}
+            <li v-for="(student,index) in sortStudent">
+                序号：{{index+1}} 我叫{{student.name}}，我今年{{student.age}}
             </li>
         </ul>
     </div>
@@ -57,7 +58,7 @@
             data: {
                 items: ["vue1", "vue2", "vue3", "vue4"],
                 nums: [12, 23, 45, 56, 69, 87, 99, 78, 5, 64, 13, 43, 413, 13, 13, 43],
-                nums1:[87,654,13,6,46,434,64,6,4,65,465,4,132,13,435,46,51,321,5,465,456,1],
+                nums1: [87, 654, 13, 6, 46, 434, 64, 6, 4, 65, 465, 4, 132, 13, 435, 46, 51, 321, 5, 465, 456, 1],
                 students: [
                     { name: 'Anson', age: 19 },
                     { name: 'Panda', age: 30 },
@@ -68,16 +69,28 @@
             computed: {
                 sortItems: function () {
                     return this.nums.sort(sortNumber);
+                },
+                sortStudent: function () {
+                    return sortByKey(this.students, "age")
                 }
             },
             methods: {
-                sort:function(){
+                sort: function () {
                     this.nums1.sort(sortNumber)
-                }
+                },
+
             }
         })
         function sortNumber(a, b) {
             return a - b
+        }
+        //数组对象方法排序:
+        function sortByKey(array, key) {
+            return array.sort(function (a, b) {
+                var x = a[key];
+                var y = b[key];
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            });
         }
     </script>
 </body>
