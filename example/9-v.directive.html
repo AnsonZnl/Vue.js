@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue.diretive 自定义指令</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>vue.diretive 自定义指令</h1>
+    <hr>
+    <div id="app">
+        <p v-jspang="color">{{num}}</p>
+        <button @click="add">add</button>
+        
+    </div>
+    <br>
+    //解绑 要在app.div的作用于外面-----销毁app这个构造函数
+    <br>
+    <button onclick="unbind()">解绑</button>
+    <div>
+        <pre>
+一、什么是全局API？
+
+全局API并不在构造器里，而是先声明全局变量或者直接在Vue上定义一些新功能，Vue内置了一些全局API，比如我们今天要学习的指令Vue.directive。说的简单些就是，在构造器外部用Vue提供给我们的API函数来定义新的功能。
+
+二、Vue.directive自定义指令
+
+我们在第一季就学习了内部指令，我们也可以定义一些属于自己的指令，比如我们要定义一个v-jspang的指令，作用就是让文字变成绿色。
+
+在自定义指令前我们写一个小功能，在页面上有一个数字为10，数字的下面有一个按钮，我们每点击一次按钮后，数字加1.
+
+你不妨模仿下面的功能，在自己本地先写出这个效果。我用JSRun提供了预览和代码展示功能，你也可以在线调试。
+
+
+
+写好了这个功能，我们现在就自己定义一个全局的指令。我们这里使用Vue.directive( );
+
+
+Vue.directive('jspang',function(el,binding,vnode){
+        el.style='color:'+binding.value;
+});
+1
+2
+3
+Vue.directive('jspang',function(el,binding,vnode){
+        el.style='color:'+binding.value;
+});
+ 
+
+
+
+可以看到数字已经变成了绿色，说明自定义指令起到了作用。可能您看这个代码还是有些不明白的，比如传入的三个参数到底是什么。
+
+三、自定义指令中传递的三个参数
+
+el: 指令所绑定的元素，可以用来直接操作DOM。
+
+binding:  一个对象，包含指令的很多信息。
+
+vnode: Vue编译生成的虚拟节点。
+
+ 
+
+四、自定义指令的生命周期
+
+自定义指令有五个生命周期（也叫钩子函数），分别是 bind,inserted,update,componentUpdated,unbind
+
+bind:只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个绑定时执行一次的初始化动作。
+inserted:被绑定元素插入父节点时调用（父节点存在即可调用，不必存在于document中）。
+update:被绑定于元素所在的模板更新时调用，而无论绑定值是否变化。通过比较更新前后的绑定值，可以忽略不必要的模板更新。
+componentUpdated:被绑定元素所在模板完成一次更新周期时调用。
+unbind:只调用一次，指令与元素解绑时调用。
+
+bind:function(){//被绑定
+     console.log('1 - bind');
+},
+inserted:function(){//绑定到节点
+      console.log('2 - inserted');
+},
+update:function(){//组件更新
+      console.log('3 - update');
+},
+componentUpdated:function(){//组件更新完成
+      console.log('4 - componentUpdated');
+},
+unbind:function(){//解绑
+      console.log('1 - bind');
+}
+bind:function(){//被绑定
+     console.log('1 - bind');
+},
+inserted:function(){//绑定到节点
+      console.log('2 - inserted');
+},
+update:function(){//组件更新
+      console.log('3 - update');
+},
+componentUpdated:function(){//组件更新完成
+      console.log('4 - componentUpdated');
+},
+unbind:function(){//解绑
+      console.log('5 - unbind');
+}
+</pre>
+    </div>
+    <script>  
+    //解绑
+      function unbind(){
+          app.$destroy();
+          //销毁app这个构造函数
+      }
+//定义全局指令
+        // Vue.directive('jspang', function (el, binding, vnode) {
+        //     console.log(el);//<p v-jspang="color">{{num}}</p>
+        //     console.log(binding);//{name: "jspang", rawName: "v-jspang", value: "red", expression: "color", modifiers: {…}, …}
+        //     console.log(binding.name);//jspang
+        //     console.log(binding.expression);//color
+        //     console.log(binding.value);//red
+        //     el.style = "color:" + binding.value
+        // })
+        //自定义指令的生命周期
+        Vue.directive('jspang', {
+            bind:function(el,binding){
+                console.log("1-bind 被绑定");
+                el.style="color:"+binding.value;
+            },
+            inserted:function(){
+                console.log("2-inserted 绑定到节点时");
+            },
+            update:function(){
+                console.log("3-update 组件跟新时");
+            },
+            componentUpdated:function(){
+                console.log("4- componentUpdated 组件跟新完成");
+            },
+            unbind:function(){
+                console.log("5- unbind 解绑")
+            }
+        }
+        )
+        var app = new Vue({
+            el: "#app",
+            data: {
+                num: 10,
+                color: 'red'
+            },
+            methods: {
+                add: function () {
+                    this.num++;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
