@@ -15,13 +15,62 @@
     <div id="app">
         <p v-jspang="color">{{num}}</p>
         <button @click="add">add</button>
-        
+
     </div>
     <br>
     //解绑 要在app.div的作用于外面-----销毁app这个构造函数
     <br>
     <button onclick="unbind()">解绑</button>
     <div>
+      <script>
+      //解绑
+        function unbind(){
+            app.$destroy();
+            //销毁app这个构造函数
+        }
+  //定义全局指令
+          // Vue.directive('jspang', function (el, binding, vnode) {
+          //     console.log(el);//<p v-jspang="color">{{num}}</p>
+          //     console.log(binding);//{name: "jspang", rawName: "v-jspang", value: "red", expression: "color", modifiers: {…}, …}
+          //     console.log(binding.name);//jspang
+          //     console.log(binding.expression);//color
+          //     console.log(binding.value);//red
+          //     el.style = "color:" + binding.value
+          // })
+          //自定义指令的生命周期
+          Vue.directive('jspang', {
+              bind:function(el,binding){
+                  console.log("1-bind 被绑定");
+                  console.log(binding.value)
+                  el.style="color:"+binding.value;
+              },
+              inserted:function(){
+                  console.log("2-inserted 绑定到节点时");
+              },
+              update:function(){
+                  console.log("3-update 组件跟新时");
+              },
+              componentUpdated:function(){
+                  console.log("4- componentUpdated 组件跟新完成");
+              },
+              unbind:function(){
+                  console.log("5- unbind 解绑")
+              }
+          }
+          )
+          var app = new Vue({
+              el: "#app",
+              data: {
+                  num: 10,
+                  color: 'red'
+              },
+              methods: {
+                  add: function () {
+                      this.num++;
+                  }
+              }
+          })
+      </script>
         <pre>
 一、什么是全局API？
 
@@ -43,13 +92,10 @@
 Vue.directive('jspang',function(el,binding,vnode){
         el.style='color:'+binding.value;
 });
-1
-2
-3
 Vue.directive('jspang',function(el,binding,vnode){
         el.style='color:'+binding.value;
 });
- 
+
 
 
 
@@ -63,7 +109,7 @@ binding:  一个对象，包含指令的很多信息。
 
 vnode: Vue编译生成的虚拟节点。
 
- 
+
 
 四、自定义指令的生命周期
 
@@ -107,54 +153,7 @@ unbind:function(){//解绑
 }
 </pre>
     </div>
-    <script>  
-    //解绑
-      function unbind(){
-          app.$destroy();
-          //销毁app这个构造函数
-      }
-//定义全局指令
-        // Vue.directive('jspang', function (el, binding, vnode) {
-        //     console.log(el);//<p v-jspang="color">{{num}}</p>
-        //     console.log(binding);//{name: "jspang", rawName: "v-jspang", value: "red", expression: "color", modifiers: {…}, …}
-        //     console.log(binding.name);//jspang
-        //     console.log(binding.expression);//color
-        //     console.log(binding.value);//red
-        //     el.style = "color:" + binding.value
-        // })
-        //自定义指令的生命周期
-        Vue.directive('jspang', {
-            bind:function(el,binding){
-                console.log("1-bind 被绑定");
-                el.style="color:"+binding.value;
-            },
-            inserted:function(){
-                console.log("2-inserted 绑定到节点时");
-            },
-            update:function(){
-                console.log("3-update 组件跟新时");
-            },
-            componentUpdated:function(){
-                console.log("4- componentUpdated 组件跟新完成");
-            },
-            unbind:function(){
-                console.log("5- unbind 解绑")
-            }
-        }
-        )
-        var app = new Vue({
-            el: "#app",
-            data: {
-                num: 10,
-                color: 'red'
-            },
-            methods: {
-                add: function () {
-                    this.num++;
-                }
-            }
-        })
-    </script>
+
 </body>
 
 </html>
