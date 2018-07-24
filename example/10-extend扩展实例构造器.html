@@ -8,7 +8,18 @@
     <script src="../assets/js/vue.js"></script>
 </head>
 <body>
-    <h1>hello world</h1>
+    <h1>Vue.extend 扩展实例构造器</h1>
+    <h3>一、什么是Vue.extend？</h3>
+
+Vue.extend 返回的是一个“扩展实例构造器”,也就是预设了部分选项的Vue实例构造器。经常服务于Vue.component用来生成组件，可以简单理解为当在模板中遇到该组件名称作为标签的自定义元素时，会自动调用“扩展实例构造器”来生产组件实例，并挂载到自定义元素上。
+
+由于我们还没有学习Vue的自定义组件，所以我们先看跟组件无关的用途。
+
+
+
+<h3>二、自定义无参数标签</h3>
+
+我们想象一个需求，需求是这样的，要在博客页面多处显示作者的网名，并在网名上直接有链接地址。我们希望在html中只需要写<author></author> ，这和自定义组件很像，但是他没有传递任何参数，只是个静态标签。
     <hr>
     <div id="author"></div>
 
@@ -16,13 +27,15 @@
         var authorExtend = Vue.extend({
           template:"<p><a :href='authorUrl'>{{authorName}}</a></p>",
           data:function(){
+            //自定义指定的data数据 必须return 到data上
             return {
               authorName:"张宁乐",
-              authorUrl:"http://zhangningle.top"
+              authorUrl:"http://www.zhangningle.top"
             }
           }
         });
         new authorExtend().$mount("#author");
+        //过程绑定 把authorExtend(0绑定到#author上)
     </script>
 </body>
 </html>

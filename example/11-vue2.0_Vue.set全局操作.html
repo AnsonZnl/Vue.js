@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.set() 全局操作</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Vue.set()</h1>
+    <hr>
+    vue.set 是能够改变外部的数组的变化，
+    由于Javascript的限制，Vue不能自动检测以下变动的数组。
+
+    *当你利用索引直接设置一个项时，vue不会为我们自动更新。
+
+    *当你修改数组的长度时，vue不会为我们自动更新。
+    我们需要用Vue.set(app.arr,1,’ddd’)来设置改变，
+    vue才会给我们自动更新，这就是Vue.set存在的意义。
+
+
+调用方法：Vue.set( target, key, value )
+
+target：要更改的数据源(可以是对象或者数组)
+
+key：要更改的具体数据
+
+value ：重新赋的值
+
+这里可以看出，Vue.set()不光能修改数据，还能添加数据，弥补了Vue数组变异方法的不足
+
+Tip:Vue.set()在methods中也可以写成this.$set()
+    <div id="app">
+      <ul>
+        <li v-for="item in arr">{{item}}</li>
+      </ul>
+      <p>{{count}}</p>
+    </div>
+
+    <button type="button" name="button" onclick="add(0)">add</button>
+    <script>
+
+    function add(){
+      //app.count++//用Vue对象的方法添加
+      //outData.count//直接操作外部数据
+      Vue.set(outData,'count',4);//用Vue.set改变数组或者对象的某个值 成4
+      Vue.set(outData.arr,1,"zzz");
+      //      数组或对象   要改变下标为1的数据   修改后的值
+    }
+        var outData={
+          count:1,
+          arr:["aaa","bbb","ccc"]
+        }
+        console.log(outData.arr[1])
+        var app=new Vue({
+            el:"#app",
+            data:outData
+        })
+    </script>
+</body>
+</html>

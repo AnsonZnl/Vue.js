@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>0_component_2 -props</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>component_2 -props组件注册 </h1>
+    <h2>一、定义属性并获取属性值</h2>
+定义属性我们需要用props选项，加上数组形式的属性名称，例如：props:[‘here’]。在组件的模板里读出属性值只需要用插值的形式，例如{{ here }}.
+<h2>二、属性中带’-‘的处理方式</h2>
+我们在写属性时经常会加入’-‘来进行分词，比如：<panda   from-here=”China”></panda>，那这时我们在props里如果写成props:[‘form-here’]是错误的，我们必须用小驼峰式写法props:[‘formHere’]。
+PS：因为这里有坑，所以还是少用-为好。
+
+<h2>三、在构造器里向组件中传值</h2>
+把构造器中data的值传递给组件，我们只要进行绑定就可以了。就是我们第一季学的v-bind:xxx.
+    <hr>
+    <div id="app">
+        <panda :here="message"></panda>
+    </div>
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+              message:"China"
+            },
+            components:{
+              "panda":{
+                template:`
+                  <div>熊猫来自{{here}}</div>
+                `,
+                props:["here"]
+              }
+            }
+        })
+    </script>
+</body>
+</html>

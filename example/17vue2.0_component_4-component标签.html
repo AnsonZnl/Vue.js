@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>component_4 component标签</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>component_4 component标签</h1>
+    <component></component>标签是Vue框架自定义的标签，它的用途就是可以动态绑定我们的组件，根据数据的不同更换不同的组件。
+
+<h3>1.我们先在构造器外部定义三个不同的组件，分别是componentA,componentB和componentC.</h3>
+2.我们在构造器的components选项里加入这三个组件。
+3.我们在html里插入component标签，并绑定who数据，根据who的值不同，调用不同的组件。
+这就是我们的组件标签的基本用法。我们提高以下，给页面加个按钮，每点以下更换一个组件。
+
+    <hr>
+    <div id="app">
+      <component v-bind:is="who"></component>
+      <button @click="chinge" type="button" name="button">换一换</button>
+    </div>
+    <script>
+    var componentA = {
+      template:`
+        <p style="color:red;">我是componentA组件</p>
+      `
+    }
+    var componentB = {
+      template:`
+        <p style="color:green;">我是componentB组件</p>
+      `
+    }
+    var componentC = {
+      template:`
+        <p style="color:pink;">我是componentC组件</p>
+      `
+    }
+        var app=new Vue({
+            el:"#app",
+            data:{
+              who:"componentA"
+            },
+            components:{
+              "componentA":componentA,
+              "componentB":componentB,
+              "componentC":componentC
+            },
+            methods:{
+              chinge:function (){
+                if(this.who=="componentA"){
+                  this.who="componentB"
+                }else if (this.who=="componentB") {
+                  this.who="componentC"
+                }else {
+                  this.who="componentA"
+                }
+              }
+            }
+        })
+    </script>
+</body>
+</html>

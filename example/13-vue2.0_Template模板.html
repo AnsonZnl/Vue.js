@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Template模板</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Template模板</h1>
+    <hr>
+    <div id="app">
+      {{message}}
+    </div>
+    <!-- <template id="tem"> -->
+      <!-- <h2>我是tem标签模板</h2> -->
+    <!-- </template> -->
+
+    <script type="x-template" id="tem2" src=“”>
+    //可以外部引用 src=""
+      <h2>我是script标签模板</h2>
+    </script>
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+              message:"helo world"
+            },
+            //第三种 可以外部引用
+            template:"#tem2"
+
+            //第二种
+            //template:"#tem"
+
+            //第一种
+            // template:`
+            //   <h2>我是选项模板</h2>
+            // `
+        })
+    </script>
+</body>
+</html>

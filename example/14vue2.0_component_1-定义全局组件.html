@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue2.0_component_1</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>vue2.0_component_1 -定义全局组件</h1>
+    <hr>
+    <h3>前言（废话）：</h2>component组件是Vue学习的重点、重点、重点，重要的事情说三遍。所以你必须学好Vue component。其实组件就是制作自定义的标签，这些标签在HTML中是没有的。比如：<jspang></jspang>，那我们就开始学习这种技巧吧。
+<br>
+<br>
+<h3>一、全局化注册组件</h3>
+全局化就是在构造器的外部用Vue.component来注册，我们注册现在就注册一个<jspang></jspang>的组件来体验一下。
+我们在javascript里注册了一个组件，在HTML中调用了他。这就是最简单的一个组件的编写方法，并且它可以放到多个构造器的作用域里。
+<br>
+<h3>二、局部注册组件局部注册组件和全局注册组件是向对应的</h3>
+，局部注册的组件只能在组件注册的作用域里进行使用，其他作用域使用无效。
+从代码中你可以看出局部注册其实就是写在构造器里，但是你需要注意的是，构造器里的components 是加s的，而全局注册是不加s的。
+<br>
+<h3>三、组件和指令的区别</h3>
+组件注册的是一个标签，而指令注册的是已有标签里的一个属性。在实际开发中我们还是用组件比较多，指令用的比较少。因为指令看起来封装的没那么好，这只是个人观点。
+
+
+    <div id="app">
+      app1
+      <br>
+      <znl></znl>
+      <panda></panda>
+    </div>
+    <div id="app2">
+      app2
+      <br>
+      <znl></znl>
+      <panda></panda>
+    </div>
+    <script>
+    //全局的组件
+    Vue.component("znl",{
+      template:`
+        <div style="color:red"><p>我是全局的znl组件</p></div>
+      `
+    })
+        var app=new Vue({
+            el:"#app",
+            data:{
+
+            },
+            //局部组件 components 可定义多个
+            components:{
+              "panda":{
+                template:`
+                  <div style="color:green"><p>我是局部的znl组件</p></div>
+                `
+              }
+            }
+        })
+    </script>
+</body>
+</html>
