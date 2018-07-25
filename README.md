@@ -2,7 +2,7 @@
 vue.js从基础到深入的学习
 ## vue2.0实例
 ### 第一季：Vue内部指令
-- [Hello World](!./example/1-helloWorld.html)
+- [Hello World](./example/1-helloWorld.html)
 - v-if&v-else&v-show 指令
 - v-for 循环
 - v-text & v-html案例
