@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>extends 扩展选项</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>extends 扩展选项</h1>
+<pre>
+通过外部增加对象的形式，对构造器进行扩展。它和我们上节课讲的混入非常的类似。
+一、extends我们来看一个扩展的实例。
+<textarea name="name" rows="35" cols="80">
+  <h1>Extends Optin Demo</h1>
+      <hr>
+      <div id="app">
+          {{message}}
+          <p><button @click="add">add</button></p>
+      </div>
+
+      <script type="text/javascript">
+          var bbb={
+              created:function(){
+                  console.log("我是被扩展出来的");
+              },
+              methods:{
+                  add:function(){
+                      console.log('我是被扩展出来的方法！');
+                  }
+              }
+          };
+          var app=new Vue({
+              el:'#app',
+              data:{
+                  message:'hello Vue!'
+              },
+              methods:{
+                  add:function(){
+                      console.log('我是原生方法');
+                  }
+              },
+              extends:bbb
+              //扩展之能放一个 不能是数组
+          })
+      </script>
+</textarea>
+
+
+
+扩展和混入的区别的
+
+ 扩展的方法在实例(原生)的方法后执行
+ 如果扩展的方法和实例(原生)的方法重复 则执行实例(原生)的方法的
+二、delimiters 选项
+因为这节课内容比较少，所以我们把要讲的最后一个选项一起讲了。delimiters的作用是改变我们插值的符号。Vue默认的插值是双大括号{{}}。但有时我们会有需求更改这个插值的形式。
+
+
+<textarea name="name" rows="8" cols="80">
+新的插值：{{}}<---->￥{}
+    ${num}
+
+   delimiters:['${','}']
+</textarea>
+现在我们的插值形式就变成了${}。
+
+这季的内容就这些了，我们下季见吧。
+
+
+</pre>
+
+    <hr>
+    <div id="app">
+      ${num}
+      <p><button @click="add(0)">add</button></p>
+    </div>
+    <script>
+    var extendeObj = {
+      updated:function () {
+        console.log("我是扩展的updated")
+      }
+    }
+        var app=new Vue({
+            el:"#app",
+            data:{
+              num:1
+            },
+            methods:{
+              add:function(){
+                console.log("我是原生的方法")
+                this.num++;
+              }
+            },
+            extends:extendeObj,
+            //扩展
+            delimiters:['${','}']
+            //自定义插值
+        })
+    </script>
+</body>
+</html>

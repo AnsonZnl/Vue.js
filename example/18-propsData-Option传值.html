@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>propsData 传值</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>propsData 传值</h1>
+    <pre>
+    前言：Vue2.0视频教程已经出了两季，这些都是基础，为的就是能让新手快速进入。
+    这一季讲的是基础中的选项，选项就是在Vue构造器里的配置功能的前缀（Vue已经给我们定义好了），
+    Vue有很多选项，我们将在这一级教程中一一介绍。
+第1节：propsData Option  全局扩展的数据传递
+propsData 不是和属性有关，他用在全局扩展时进行传递数据。先回顾一下全局扩展的知识，作一个<header></header>的扩展标签出来。实际我们并比推荐用全局扩展的方式作自定义标签，我们学了组件
+，完全可以使用组件来做，这里只是为了演示propsData的用法。
+扩展标签已经做好了，这时我们要在挂载时传递一个数字过去，我们就用到了propsData。
+
+我们用propsData三步解决传值：
+
+1、在全局扩展里加入props进行接收。propsData:{a:1}
+
+2、传递时用propsData进行传递。props:[‘a’]
+
+3、用插值的形式写入模板。{{ a }}
+
+总结：propsData在实际开发中我们使用的并不多，我们在后边会学到Vuex的应用，他的作用就是在单页应用中保持状态和数据的。
+
+
+</pre>
+    <hr>
+    <header id="header">
+
+    </header>
+    <script>
+
+      var header_a = Vue.extend({
+        template:`
+          <p>hi! 你好 {{message}}---{{a}}</p>
+        `,
+        data:function(){
+          return {
+            message:"header_a"//插槽
+          }
+        },
+        props:['a']//传值
+      });
+      new header_a({propsData:{a:1}}).$mount("#header");
+      //挂载
+    </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>20-vue2.0_MethodsOption-方法选项</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>20-vue2.0_MethodsOption-方法选项</h1>
+    <pre>
+      在以前的学习中，已经大量的使用了构造器里的methods选项，但是并没有仔细和系统的讲解过，这节课我们用点时间把methods这个选项涉及的东西都讲一讲。
+
+      我们还是复习一下最简单的使用方法，一个数字，每点击一下按钮加1.（做过很多次了，你们可以先不看代码和视频自己试着写一下）
+      <textarea name="name" rows="28" cols="80">
+        <h1>methods Option</h1>
+         <hr>
+         <div id="app">
+             {{ a }}
+             <p><button @click="add">add</button></p>
+         </div>
+
+         <script type="text/javascript">
+             var app=new Vue({
+                 el:'#app',
+                 data:{
+                     a:1
+                 },
+                 methods:{
+                     add:function(){
+                         this.a++
+                     }
+                 }
+             })
+         </script>
+
+      </textarea>
+
+      一、methods中参数的传递
+      使用方法和正常的javascript传递参数的方法一样，分为两部：
+
+      1、在methods的方法中进行声明，比如我们给add方法加上一个num参数，就要写出add:function(num){}.
+
+      2、调用方法时直接传递，比如我们要传递2这个参数，我们在button上就直接可以写。<button @click=”add(2)”></button>.
+
+      现在知道了加参数的方法，看一段完整的代码，代码中给add添加了num参数，并在按钮上调用传递了。
+
+<textarea name="name" rows="28" cols="80">
+  <h1>methods Option</h1>
+     <hr>
+     <div id="app">
+         {{ a }}
+         <p><button @click="add(2)">add</button></p>
+     </div>
+
+     <script type="text/javascript">
+         var app=new Vue({
+             el:'#app',
+             data:{
+                 a:1
+             },
+             methods:{
+                 add:function(num){
+                     if(num!=''){this.a+=num}
+                     else{this.a++}
+                 }
+             }
+         })
+     </script>
+
+</textarea>
+
+这时，再点击按钮是每次加2个数字。
+
+二、methods中的$event参数
+传递的$event参数都是关于你点击鼠标的一些事件和属性。我们先看看传递的方法。
+
+传递：<button @click=”add(2,$event)”>add</button> 。
+
+我们这时候可以打印一下，看看event到底是个怎样的对象。你会发现，它包含了大部分鼠标事件的属性。
+
+<img src="http://7xjyw1.com1.z0.glb.clouddn.com/web20170326113703.png" alt="">
+三、native  给组件绑定构造器里的原生事件。
+在实际开发中经常需要把某个按钮封装成组件，然后反复使用，如何让组件调用构造器里的方法，而不是组件里的方法。就需要用到我们的.native修饰器了。
+
+现在我们把我们的add按钮封装成组件：
+
+声明btn对象：
+
+
+var btn={
+    template:`<button>组件Add</button>`
+}
+在构造器里声明：
+
+
+ components:{
+    "btn":btn
+ }
+用.native修饰器来调用构造器里的add方法
+
+
+<p><btn @click.native="add(3)"></btn></p>
+
+
+四、作用域外部调用构造器里的方法
+这种不经常使用，如果你出现了这种情况，说明你的代码组织不够好。
+
+
+ <button onclick="app.add(4)" >外部调用构造器里的方法</button>
+
+    </pre>
+    <hr>
+    <div id="app">
+
+    <p>{{num}}</p>
+    <button @click="add" type="button" name="button">普通add++</button>
+    <br><button @click="adds(2)" type="button" name="button">传参add+2</button>
+    <br><button @click="adds(2,$event)" type="button" name="button">$event-add+2</button>
+    <p><btn @click.native="adds(3)"></btn></p>
+    </div>
+    <button onclick="app.adds(5)" type="button" name="button">外部的add</button>
+    <script>
+    var btn = {
+      template:`
+
+<button>组件add++</button>
+      `
+    }
+        var app=new Vue({
+            el:"#app",
+            data:{
+              num:1
+            },
+            components:{
+              "btn":btn
+            },
+            methods:{
+              add:function(){
+                this.num++;
+              },
+              adds:function(a){
+                if(a!=""){
+                  this.num+=a;
+                }else{
+                  this.num++
+                }
+              },
+              eventAdds:function(a,event){
+                if(a!=""){
+                  this.num+=a;
+                }else{
+                  this.num++
+                }
+                console.log(event)
+              }
+            }
+        })
+    </script>
+</body>
+</html>
