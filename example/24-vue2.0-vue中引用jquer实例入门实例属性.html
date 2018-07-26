@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>rumen</title>
+    <script src="../assets/js/vue.js"></script>
+    <script src="../assets/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <h1>rumen 实例入门 实例属性</h1>
+    <pre>
+概述：实例就是在构造器外部操作构造器内部的属性选项或者方法，就叫做实例？实例的作用就是给原生的或者其他javascript框架一个融合的接口或者说是机会，
+让Vue和其他框架一起使用。
+
+引入jquery和vue一起使用
+<textarea name="name" rows="2" cols="80">
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</textarea>
+
+试着做一个案例 在DOM被挂载后修改里面的额内容
+<textarea name="name" rows="25" cols="90">
+      <h1>Early Examples Demo</h1>
+      <hr>
+      <div id="app">
+          {{message}}
+      </div>
+
+      <script type="text/javascript">
+          var app=new Vue({
+              el:'#app',
+              data:{
+                  message:'hello Vue!'
+              },
+              //在Vue中使用jQuery
+              mounted:function(){
+                  $('#app').html('我是jQuery!');
+              }
+          })
+      </script>
+</textarea>
+
+现在页面显示是：我是jQuery，而不是hello Vue了
+
+二、实例调用自定义方法
+
+在Vue的构造器里我们写一个add方法，然后我们用实例的方法调用它。
+
+构造器里的add方法：
+<textarea name="name" rows="8" cols="80">
+  methods:{
+      add:function(){
+          console.log("调用了Add方法");
+      }
+  }
+</textarea>
+
+
+实例调用：
+
+
+<textarea name="name" rows="8" cols="80">app.add()</textarea>
+
+
+
+PS：我们有可能把app.add()的括号忘记或省略，这时候我们得到的就是方法的字符串，但是并没有执行，所以必须要加上括号。
+
+作业：利用console.log把app打印出来，看看里边到底包含了哪些属性和方法。因为里边的属性很多，这里只是简单的介绍。
+
+
+
+    </pre>
+    <hr>
+    <div id="app">
+      <p>{{message}}</p>
+    </div>
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+              message:"hello vue!"
+            },
+            methods:{
+              function(){
+                $("#id").html("hello jQurey!");
+            },
+          add:function add(){
+              console.log("调用了构造器里的add方法");
+              console.log(app);
+            }
+          }
+        })
+        app.add();
+    </script>
+</body>
+</html>

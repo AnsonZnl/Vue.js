@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue2.0_slot-内置组件（slot讲解)</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>vue2.0_slot-内置组件（slot讲解)</h1>
+
+    <pre>
+
+
+slot是标签的内容扩展，也就是说你用slot就可以在自定义组件时传递给组件内容，组件接收内容并输出。
+
+先来定义一个<jspang></jspang>的组件，这个组件用来显示博主的一些信息。
+
+我们在Vue 构造器里的data中给出了信息，信息如下：（博客地址，网名，使用技能）
+
+<textarea name="name" rows="10" cols="80">
+  data:{
+    jspangData:{
+    bolgUrl:'http://jspang.com',
+    netName:'技术胖',
+    skill:'Web前端'
+    }
+},
+      </textarea>
+
+我们用<template></template>标签的方式定义了组件：
+
+
+<textarea name="name" rows="12" cols="80">
+  <template id="tmp">
+      <div>
+          <p>博客地址：</p>
+          <p>网名：</p>
+          <p>技术类型：</p>
+
+      </div>
+  </template>
+</textarea>
+
+我们现在就可以用slot功能让组件接收传递过来的值，并在模板中接收显示。
+
+slot的使用需要两步：
+1、在HTML的组件中用slot属性传递值。
+
+
+<textarea name="name" rows="8" cols="80">
+  <jspang>
+      <span slot="bolgUrl">{{jspangData.bolgUrl}}</span>
+      <span slot="netName">{{jspangData.netName}}</span>
+      <span slot="skill">{{jspangData.skill}}</span>
+  </jspang>
+</textarea>
+
+2、在组件模板中用<slot></slot>标签接收值。
+
+<textarea name="name" rows="15" cols="80">
+  <template id="tmp">
+      <div>
+          <p>博客地址：<slot name="bolgUrl"></slot></p>
+          <p>网名：<slot name="netName"></slot></p>
+          <p>技术类型：<slot name="skill"></slot></p>
+
+      </div>
+  </template>
+</textarea>
+
+我们贴出这个案例的全部代码：
+
+<textarea name="name" rows="45" cols="80">
+
+  <h1>Slot content extend Demo</h1>
+  <hr>
+  <div id="app">
+  <jspang>
+      <span slot="bolgUrl">{{jspangData.bolgUrl}}</span>
+      <span slot="netName">{{jspangData.netName}}</span>
+      <span slot="skill">{{jspangData.skill}}</span>
+  </jspang>
+  </div>
+
+
+<template id="tmp">
+  <div>
+      <p>博客地址：<slot name="bolgUrl"></slot></p>
+      <p>网名：<slot name="netName"></slot></p>
+      <p>技术类型：<slot name="skill"></slot></p>
+
+  </div>
+</template>
+
+  <script type="text/javascript">
+      var jspang={
+          template:'#tmp'
+      }
+
+      var app=new Vue({
+          el:'#app',
+          data:{
+             jspangData:{
+                 bolgUrl:'http://jspang.com',
+                 netName:'技术胖',
+                 skill:'Web前端'
+             }
+          },
+          components:{
+              "jspang":jspang
+          }
+      })
+  </script>
+</textarea>
+
+
+
+    </pre>
+
+
+
+
+
+    <hr>
+
+
+
+    <div id="app">
+      <znl>
+        <span slot="name">{{znlData.name}}</span>
+        <span slot="url">{{znlData.url}}</span>
+        <span slot="skill">{{znlData.skill}}</span>
+      </znl>
+    </div>
+
+      <template id="znl">
+        <div>
+          <p>博客博主：<slot name="name"></slot></p>
+          <p>博客地址：<slot name="url"></slot></p>
+          <p>博客信息：<slot name="skill"></slot></p>
+        </div>
+      </template>
+
+
+    <script>
+
+        var znl = {
+          template : "#znl"
+        }
+
+        var app=new Vue({
+            el:"#app",
+            data:{
+              znlData:{
+                name:"张宁乐",
+                url:"http://www.zhangningle.top",
+                skill:"web前端"
+              }
+            },
+            components:{
+              "znl":znl
+            }
+        })
+    </script>
+</body>
+</html>

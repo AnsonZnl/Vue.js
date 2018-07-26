@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>example </title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>example mthtods</h1>
+<pre>
+  一、$mount方法
+  $mount方法是用来挂载我们的扩展的，我们先来复习一下扩展的写法。
+
+  这里我们作了jspang的扩展，然后用$mount的方法把jspang挂载到DOM上，我们也生成了一个Vue的实例，直接看代码。
+  <textarea name="name" rows="22" cols="80">
+    <h1>Examples Method Demo</h1>
+        <hr>
+        <div id="app">
+            {{message}}
+        </div>
+
+        <script type="text/javascript">
+          var jspang = Vue.extend({
+              template:`<p>{{message}}</p>`,
+              data:function(){
+                  return {
+                      message:'Hello ,I am JSPang'
+                  }
+              }
+          })
+          var vm = new jspang().$mount("#app")
+
+          // new jspang() 出一个vm实例 挂载到 #app上
+          //典型的构造函数原理
+        </script>
+  </textarea>
+
+  二、$destroy() 卸载方法
+  用$destroy()进行卸载。
+
+  我写了一个button按钮，点击后卸载整个挂载。
+
+  html：
+
+  <textarea name="name" rows="8" cols="80">
+  <p><button onclick="destroy()">卸载</button></p>
+<script>
+
+  function destroy(){
+     vm.$destroy();
+   }
+</script>
+</textarea>
+  PS:$destroy()后边必须要有括号，没有括号是无用的。
+
+  三、$forceUpdate() 更新方法
+<textarea>
+  vm.$forceUpdate()
+</textarea>
+  四、$nextTick() 数据修改方法
+  当Vue构造器里的data值被修改完成后会调用这个方法，也相当于一个钩子函数吧，和构造器里的updated生命周期很像。
+
+<textarea>
+  function tick(){
+      vm.message="update message info ";
+      vm.$nextTick(function(){
+          console.log('message更新完后我被调用了');
+      })
+  }
+  </textarea>
+  五、安装Vue的控制台调试工具。
+  每个人的安装方法不同，不作太多的介绍，可能需要你科学上网。
+
+
+参考：生命周期和钩子函数：https://segmentfault.com/a/1190000008010666
+
+
+</pre>
+    <hr>
+    <div id="app"></div>
+    <button onclick="destroy()" type="button" name="button">卸载</button>
+    <button onclick="relaod()" type="button" name="button">更新</button>
+    <button onclick="tick()" type="button" name="button">更改数据</button>
+    <script>
+       var znl = Vue.extend({
+         template:`
+         <p>{{message}}</p>
+         `,
+         data:function () {
+           return {
+             message:"hello examle!"
+           }
+         },
+         mounted:function(){
+           console.log("mountend 已经创建")
+         },
+         destroyed:function(){
+           console.log("destroy 销毁之后")
+         },
+         updated:function(){
+           this.message="数据更新了！"
+           console.log("数据跟新前！")
+         }
+       })
+
+       var vm = new znl().$mount("#app")
+    // new znl() 出一个vm实例 挂载到 #app上
+
+      function destroy(){
+        vm.$destroy();
+      }
+      function relaod(){
+        vm.$forceUpdate();
+      }
+      function tick(){
+        vm.message="update message info ";
+        vm.$nextTick(function(){
+            console.log('message更改完后我被调用了');
+        })
+    }
+    //当Vue构造器里的data值被修改完成后会调用这个方法，也相当于一个钩子函数吧，和构造器里的updated生命周期很像。
+    </script>
+</body>
+</html>

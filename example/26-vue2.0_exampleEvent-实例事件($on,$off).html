@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>exampleEvent 实例事件</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>exampleEvent 实例事件</h1>
+<pre>
+实例事件
+
+实例事件就是在构造器外部写一个调用构造器内部的方法。这样写的好处是可以通过这种写法在构造器外部调用构造器内部的数据。
+
+我们还是写一个点击按钮，持续加1的例子。
+
+一、$on  在构造器外部添加事件。
+
+<textarea name="name" rows="8" cols="80">
+  app.$on('reduce',function(){
+      console.log('执行了reduce()');
+      this.num--;
+  });
+</textarea>
+
+$on接收两个参数，第一个参数是调用时的事件名称，第二个参数是一个匿名方法。
+
+如果按钮在作用域外部，可以利用$emit来执行。
+
+<textarea name="name" rows="8" cols="80">
+
+  //外部调用内部事件
+  function reduce(){
+      app.$emit('reduce');
+  //用$emit指定调用那个事件
+  }
+</textarea>
+
+二、$once执行一次的事件
+
+<textarea name="name" rows="8" cols="80">
+  app.$once('reduceOnce',function(){
+      console.log('只执行一次的方法');
+      this.num--;
+
+  });
+</textarea>
+
+
+三、$off关闭事件
+
+指定关闭那个事件
+
+ps:off 事件只能关闭在构造器外面给构造器添加的方法  不能关闭构造器里的原有方法
+<textarea name="name" rows="8" cols="80">
+  //关闭事件
+  function off(){
+     app.$off('reduce');
+     //关闭reduce事件
+  }
+</textarea>
+
+</pre>
+    <hr>
+    <div id="app">
+      <p>{{num}}</p>
+      <p><button @click="add()">add +1</button></p>
+    </div>
+
+    <p><button onclick="reduce()">reduce -1</button></p>
+    <p><button onclick="reduceOnce()">reduceOnce +10 只执行一次</button></p>
+    <p><button onclick="off()">off 消除add+1方法</button></p>
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+              num:1
+            },
+            methods:{
+              add:function(){
+                this.num++;
+              }
+            }
+        });
+
+        //在构造器外面给构造器添加函数 使用$on
+        app.$on("reduce",function(){
+          console.log("执行了reduce()");
+          this.num--;
+        });
+        app.$once("reduceOnce",function(){
+          console.log("只执行一次的方法！");
+          this.num+=10;
+        })
+        //添加的函数的使用$emit挂载一下
+        function reduce(){
+          app.$emit("reduce");
+        }
+        function reduceOnce(){
+          console.log("只执行一次的时间")
+          app.$emit("reduceOnce");
+        }
+        //关闭指定的事件
+        function off(){
+          console.log("执行off事件")
+          app.$off("reduce");
+        }
+    </script>
+</body>
+</html>
