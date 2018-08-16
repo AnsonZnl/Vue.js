@@ -1,6 +1,7 @@
 # vue.js
 vue.js从基础到深入的学习
 ## vue2.0实例
+参考：[Vue超快学习](https://segmentfault.com/a/1190000015740490#articleHeader6)
 ### 第一季：Vue内部指令
 - [Hello World](https://zhangningle.gitee.io/vue.js-study/example/1-helloWorld.html)
 - [v-if&v-else&v-show 指令](https://zhangningle.gitee.io/vue.js-study/example/2-v-if_v-else_v-show.html)
