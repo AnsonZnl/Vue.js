@@ -1,5 +1,4 @@
 # vue.js
-vue.js从基础到深入的学习
 [vue官网](https://cn.vuejs.org/v2/guide/)
 ## vue2.0实例
 参考：[Vue超快学习](https://segmentfault.com/a/1190000015740490#articleHeader6)
